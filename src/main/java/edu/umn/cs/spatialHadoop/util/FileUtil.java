@@ -12,6 +12,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
@@ -61,7 +62,7 @@ public final class FileUtil {
 		if (fs instanceof LocalFileSystem && split.getStart() == 0)
 			return split.getPath().toUri().getPath();
 		
-		File destFile = File.createTempFile(split.getPath().getName(), "tmp");
+		File destFile = Files.createTempFile(split.getPath().getName(), "tmp").toFile();
 		// Special handling for HTTP files for more efficiency
 		/*if (fs instanceof HTTPFileSystem && split.getStart() == 0) {
 		  URL website = split.getPath().toUri().toURL();

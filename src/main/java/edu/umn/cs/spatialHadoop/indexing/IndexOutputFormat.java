@@ -17,6 +17,7 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.Thread.State;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.ConcurrentHashMap;
@@ -303,7 +304,7 @@ public class IndexOutputFormat<S extends Shape>
           partition.filename = path.getName();
         } else {
           // Write to a temporary file that will later get indexed
-          File tempFile = File.createTempFile(String.format("part-%05d", id), "lindex");
+          File tempFile = Files.createTempFile(String.format("part-%05d", id), "lindex").toFile();
           out = new BufferedOutputStream(new FileOutputStream(tempFile));
           tempFiles.put(id, tempFile);
         }
